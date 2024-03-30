@@ -1,0 +1,18 @@
+[
+  {
+    "title": "Producto A",
+    "description": "Descripcion del producto A",
+    "price": 10.99,
+    "thumnail": "ruta/imagenA.jpg",
+    "code": "PIB1",
+    "stock": 10
+  },
+  {
+    "title": "Producto B",
+    "description": "Descripcion del producto B",
+    "price": 19.99,
+    "thumnail": "ruta/imagenB.jpg",
+    "code": "PIB2",
+    "stock": 5
+  }
+]
