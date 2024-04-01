@@ -1,3 +1,5 @@
+const { ifError } = require('assert')
+const { readFile } = require('fs')
 
 const fs = require('fs').promises
 
@@ -59,19 +61,40 @@ class ProductManager {
 
     }
 
-    async getProductsById(id) {
+    async getProductsById(Id) {
         try {
             
-            const id = await fs.readFile(this.ListadeProductosFile, "utf8")
-            return JSON.parse(id)           
-        
-                    
+            const Id = await fs.readFile(this.ListadeProductosFile, () => {
+                return JSON.parse(Id) 
+            })
+                  
+                            
         } catch (error) {  
             console.error("Error al buscar producto por Id", error)          
         
         }
     }
     
+    async updateProduct(Id){
+        const modificarPrecio = new product.price 
+
+        try {
+            await fs.appendFile(this.ListadeProductosFile, modificarPrecio)
+            console.log("Precio Actualizado correctamente")
+        } catch (error) {
+            console.error("Error al actualizar Precio", error)
+        }
+
+
+    }
+
+    async deleteProduct(Id){
+        try {
+            
+        } catch (error) {
+            
+        }
+    }
     
 }
 

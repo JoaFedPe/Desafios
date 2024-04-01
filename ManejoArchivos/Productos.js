@@ -37,8 +37,17 @@ const productManager = new ProductManager()
 
 
 //Consultar Productos por Id
-const producto = productManager.getProductsById(2)
-console.log(producto)
+
+const producto = async () => {
+    const productById = await productManager.getProductsById(2)
+    console.log(productById)
+}
+
+// Modificar Productos
+
+const update = productManager.updateProduct(2) 
+console.log(update)
+
 
 
 
