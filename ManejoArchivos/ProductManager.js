@@ -16,7 +16,10 @@ class ProductManager {
         try {
             let products = await this.getProducts(product)
 
+            product.id= this.nextId++            
             products.push(product)
+
+            
             await fs.writeFile(this.ListadeProductosFile, JSON.stringify(products, null, 2))
             console.log("Producto agregado correctamente")
             
@@ -29,8 +32,7 @@ class ProductManager {
             console.error("Error al crear producto", error)
         }
 
-        product.id= this.nextId++
-        this.products.push(product)
+        
 
     } 
 
@@ -64,10 +66,14 @@ class ProductManager {
     async getProductsById(Id) {
         try {
             
-            const Id = await fs.readFile(this.ListadeProductosFile, () => {
-                return JSON.parse(Id) 
-            })
-                  
+            const findId = await fs.readFile(this.ListadeProductosFile)
+            const productojson = JSON.parse(findId)
+            
+            return productojson.find( (product) =>
+
+                product.id === Id
+                
+            )      
                             
         } catch (error) {  
             console.error("Error al buscar producto por Id", error)          
@@ -75,24 +81,45 @@ class ProductManager {
         }
     }
     
-    async updateProduct(Id){
-        const modificarPrecio = new product.price 
+    async updateProduct(Id, price) {
 
         try {
-            await fs.appendFile(this.ListadeProductosFile, modificarPrecio)
-            console.log("Precio Actualizado correctamente")
-        } catch (error) {
-            console.error("Error al actualizar Precio", error)
+    
+          const productString = await fs.readFile(this.ListadeProductosFile);    
+          const productJson = JSON.parse(productString);    
+
+          const product = productJson.find((product) => product.id === Id);              
+          product.price = price;
+    
+          await fs.writeFile(
+            this.ListadeProductosFile,    
+            JSON.stringify(productJson)
+    
+          );    
+          console.log("Precio Actualizado correctamente");    
+        } catch (error) {    
+          console.error("Error al actualizar Precio", error);
+    
         }
-
-
-    }
+    
+      }
 
     async deleteProduct(Id){
         try {
+          const productString = await fs.readFile(this.ListadeProductosFile);    
+          const productJson = JSON.parse(productString);    
+
+          const product = productJson.find((product) => product.id != Id);              
+              
+          await fs.writeFile(    
+            this.ListadeProductosFile,    
+            JSON.stringify(productJson)
+    
+          );    
+          console.log("Producto eliminado correctamente")
             
         } catch (error) {
-            
+            console.error("Error al eliminar Precio", error)
         }
     }
     
