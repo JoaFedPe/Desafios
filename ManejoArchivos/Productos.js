@@ -55,11 +55,11 @@ consultarProducto()*/
 
 // Modificar Productos
 
-/*const updateProducto = async () => {
+const updateProducto = async () => {
     const modificar = await productManager.updateProduct(2, 14.99)
     console.log(modificar)
 }
-updateProducto()*/
+updateProducto()
 
 // Eliminar producto
 
