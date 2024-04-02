@@ -5,14 +5,14 @@ const productManager = new ProductManager()
 
 //Agregar Producto nuevo
 
-/*productManager.addProduct({
+productManager.addProduct({
     title: "Producto A",
     description: "Descripcion del producto A",
     price: 10.99,
     thumnail: 'ruta/imagenA.jpg',
     code: 'PIB1',
     stock: 10
-})*/
+})
 
 //Luego de agregar el producto A, se puede agregar el B y C (que luego será eliminado) cambiando al info del producto por esta:
 
@@ -55,19 +55,20 @@ consultarProducto()*/
 
 // Modificar Productos
 
-const updateProducto = async () => {
+/*const updateProducto = async () => {
     const modificar = await productManager.updateProduct(2, 14.99)
     console.log(modificar)
 }
-updateProducto()
+updateProducto()*/
 
 // Eliminar producto
 
-const eliminarProducto = async () => {
+/*const eliminarProducto = async () => {
     const eliminar = await productManager.deleteProduct(3)
     console.log(eliminar)
 }
-eliminarProducto()
+eliminarProducto()*/
+
 
 
 

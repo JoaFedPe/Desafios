@@ -8,7 +8,7 @@ class ProductManager {
     constructor () {
         this.ListadeProductosFile = "ListadeProductos.json"
         this.products = []
-        this.nextId = 1
+        
     }
 
     async addProduct(product){
@@ -16,7 +16,7 @@ class ProductManager {
         try {
             let products = await this.getProducts(product)
 
-            product.id= this.nextId++            
+            product.id = (products?.pop()?.id || 0) ++        
             products.push(product)
 
             
@@ -44,6 +44,7 @@ class ProductManager {
             product.thumnail &&
             product.code &&
             product.stock !== undefined
+                        
         )
     }
 
@@ -91,11 +92,7 @@ class ProductManager {
           const product = productJson.find((product) => product.id === Id);              
           product.price = price;
     
-          await fs.writeFile(
-            this.ListadeProductosFile,    
-            JSON.stringify(productJson)
-    
-          );    
+          await fs.writeFile(this.ListadeProductosFile, JSON.stringify(productJson, null, 2))             
           console.log("Precio Actualizado correctamente");    
         } catch (error) {    
           console.error("Error al actualizar Precio", error);
@@ -109,17 +106,14 @@ class ProductManager {
           const productString = await fs.readFile(this.ListadeProductosFile);    
           const productJson = JSON.parse(productString);    
 
-          const product = productJson.find((product) => product.id != Id);              
+          const product = productJson.filter((product) => product.id !== Id);              
               
-          await fs.writeFile(    
-            this.ListadeProductosFile,    
-            JSON.stringify(productJson)
-    
-          );    
+          await fs.writeFile(this.ListadeProductosFile, JSON.stringify(product, null, 2))    
+               
           console.log("Producto eliminado correctamente")
             
         } catch (error) {
-            console.error("Error al eliminar Precio", error)
+            console.error("Error al eliminar el Producto", error)
         }
     }
     
