@@ -16,10 +16,13 @@ class ProductManager {
         try {
             let products = await this.getProducts(product)
 
-            product.id = (products?.pop()?.id || 0) ++        
+            product.id = (products[products?.length - 1]?.id || 0) + 1;       
             products.push(product)
 
-            
+            if(!this.isProductValid(product)){
+                console.error("Error al crear producto")
+            }
+
             await fs.writeFile(this.ListadeProductosFile, JSON.stringify(products, null, 2))
             console.log("Producto agregado correctamente")
             
@@ -28,11 +31,7 @@ class ProductManager {
             
         }    
         
-        if(!this.isProductValid(product)){
-            console.error("Error al crear producto", error)
-        }
-
-        
+                
 
     } 
 
