@@ -1,0 +1,14 @@
+{
+  "name": "desafios",
+  "version": "1.0.0",
+  "description": "Desafíos curso Backend Coderhouse",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch ServidorExpress/app.js"
+  },
+  "author": "Joaquín F. Peña",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
