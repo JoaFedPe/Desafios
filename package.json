@@ -4,7 +4,7 @@
   "description": "Desafíos curso Backend Coderhouse",
   "main": "index.js",
   "scripts": {
-    "start": "node --watch ServidorExpress/app.js"
+    "start": "node --watch ServidorExpress/src/app.js"
   },
   "author": "Joaquín F. Peña",
   "license": "ISC",

@@ -5,7 +5,7 @@ const PORT = 8080
 const ProductManager = require ('./ProductManager.js')
 const { pid } = require('process')
 app.use(express.urlencoded({ extended: true}))
-app.use(express.json)
+app.use(express.json())
 
 const productManager = new ProductManager()
 
@@ -14,7 +14,7 @@ const productManager = new ProductManager()
 app.get('/products', async (req, res) => {
     
     try{
-        let limit = req.query 
+        let { limit } = req.query 
             
         const lista = await productManager.getProducts(limit) 
         res.json(lista)    
@@ -29,7 +29,7 @@ app.get('/products', async (req, res) => {
 app.get('/products/:pid', async (req, res) => { 
         
     try {
-    let Id = req.params.pid    
+    let Id = parseInt(req.params.pid)    
     
     const producto = await productManager.getProductsById(Id)
     

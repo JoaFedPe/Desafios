@@ -124,7 +124,7 @@ class ProductManager {
 
 module.exports = ProductManager
 
-//const productManager = new ProductManager
+const productManager = new ProductManager
 
 /*productManager.addProduct({
     title: "Producto A",
@@ -154,13 +154,13 @@ module.exports = ProductManager
 })*/
 
 /*productManager.addProduct({
-    title: "Producto D",
+    title: "Producto E",
     description: "Descripcion del producto D",
     price: 4.99,
     thumnail: 'ruta/imagenD.jpg',
-    code: 'PIB4',
+    code: 'PIB5',
     stock: 25
-})*/
+})
 
 
 /*async getProducts(product){
