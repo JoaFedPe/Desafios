@@ -91,3 +91,31 @@ const producto = productManager.getProductsById(1)
 console.log(producto)
 
 
+// Function to add a product
+function addProduct() {
+    // Capture input values
+    const title = document.getElementById('titleProduct').value;
+    const description = document.getElementById('descriptionProduct').value;
+    const code = document.getElementById('codeProduct').value;
+    const price = document.getElementById('priceProduct').value;
+    const status = document.getElementById('statusProduct').value;
+    const stock = document.getElementById('stockProduct').value;
+    const category = document.getElementById('categoryProduct').value;
+
+    // Emit an event to the server with the product data
+    socket.emit('addProduct', {
+        title,
+        description,
+        code,
+        price,
+        status,
+        stock,
+        category
+    });
+}
+
+// Listen for response from the server (optional)
+socket.on('productAdded', () => {
+    // Optionally, you can update the client-side display here
+    console.log('Product added successfully');
+});

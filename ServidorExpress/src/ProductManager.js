@@ -124,57 +124,6 @@ class ProductManager {
 
 module.exports = ProductManager
 
-const productManager = new ProductManager
-
-/*productManager.addProduct({
-    title: "Producto A",
-    description: "Descripcion del producto A",
-    price: 10.99,
-    thumnail: 'ruta/imagenA.jpg',
-    code: 'PIB1',
-    stock: 10
-})*/
-
-/*productManager.addProduct({
-    title: "Producto B",
-    description: "Descripcion del producto B",
-    price: 19.99,
-    thumnail: 'ruta/imagenB.jpg',
-    code: 'PIB2',
-    stock: 5
-})*/
-
-/*productManager.addProduct({
-    title: "Producto C",
-    description: "Descripcion del producto C",
-    price: 4.99,
-    thumnail: 'ruta/imagenC.jpg',
-    code: 'PIB3',
-    stock: 50
-})*/
-
-/*productManager.addProduct({
-    title: "Producto E",
-    description: "Descripcion del producto D",
-    price: 4.99,
-    thumnail: 'ruta/imagenD.jpg',
-    code: 'PIB5',
-    stock: 25
-})
 
 
-/*async getProducts(product){
-    try {
-        const data = await fs.readFile(this.ListadeProductosFile, "utf8")
-        return JSON.parse(data)
-    } catch (error) {
-        if (error.code === 'ENOENT') {
-            return []
-        } else {
-            throw error
-        }
-        
-    }
 
-
-}*/
