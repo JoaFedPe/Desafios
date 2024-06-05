@@ -18,7 +18,7 @@ router.post('/login', async (req, res) => {
     const {email, password} = req.body
     console.log(email, password)
     try{
-        const user = User.findOne ({email})
+        const user = await User.findOne ({email})
         console.log(user)
         if(!user) return res.status(404).send('Usuario no encontrado')
         req.session.user = {
