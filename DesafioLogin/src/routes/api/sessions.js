@@ -1,14 +1,24 @@
 import { Router } from "express";
 import User from '../../models/user.model.js'
+import firstCollection from "../../models/user.model.js";
 
 const router = Router()
 
 router.post('/register', async (req, res) => {
     const {first_name, last_name, email, age, password} = req.body
+    
     try{
         const newUser = new User ({first_name, last_name, email, age, password})
+
+        if (email === 'adminCoder@coder.com') {
+            newUser.rol = 'admin';
+        } else {
+            newUser.rol = 'user';
+        }       
+
         await newUser.save()
         res.redirect('/login')
+
     } catch (err) {
         res.status(500).send('Error al registrar usuario')
     }
