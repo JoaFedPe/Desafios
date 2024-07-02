@@ -1,38 +1,15 @@
 import { Router } from 'express'
 import mongoose from 'mongoose'
 import productModel from '../dao/mongo/models/products.model.js'
-
+import {getProducts, getProductsById} from '../controllers/products.controller.js'
 
 
 const router = Router()
 
-router.get('/products', async (req,res) => {
-    let page = parseInt(req.query.page)
-    let limit = parseInt(req.query.limit)
-    let filters = {}
-    let sort = {}
-
-    if(!limit) limit = 10
-    if(!page) page = 1
-    if(req.query.category) filters.category= req.query.category
-    if(req.query.title) filters.title= req.query.title
-    if(req.query.sort) sort.price = req.query.sort
-    
-
-    let result = await productModel.paginate(filters, {page, limit, sort, lean: true}, )
-    result.prevLink = result.hasPrevPage ? `http://localhost:8080/products?page=${result.prevPage}&limit=${limit}` : ''
-    result.nextLink = result.hasNextPage ? `http://localhost:8080/products?page=${result.nextPage}&limit=${limit}` : ''
-    result.isValid = !(page <= 0 || page > result.totalPages)
-    
-    res.render('products', {
-        docs:result.docs,
-        user: req.session.user,
-        isValid: true             
-    })
-})
+router.get('/products', getProducts)
 
 
-router.get('/products/:pid', async (req, res) => {
+router.get('/products/:pid', getProductsById) /* async (req, res) => {
     let { pid } = req.params
     try {
         let product = await productModel.findOne({_id:pid})
@@ -40,8 +17,8 @@ router.get('/products/:pid', async (req, res) => {
         
     } catch (error) {
         res.send ({ status: "error", error: "No existe producto con la ID ingresada"})
-    }
-})
+    } */
+//})
 
 router.post('/products', async (req, res) => {
     let {title, description, code, price, status, stock, category,} = req.body

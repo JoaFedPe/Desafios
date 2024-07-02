@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import mongoose from 'mongoose'
-import productModel from '../models/products.model.js'
+import productModel from '../dao/mongo/models/products.model.js'
 
 
 
