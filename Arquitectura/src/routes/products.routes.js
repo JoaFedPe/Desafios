@@ -9,7 +9,9 @@ const router = Router()
 router.get('/products', getProducts)
 
 
-router.get('/products/:pid', getProductsById) /* async (req, res) => {
+router.get('/products/:pid', getProductsById) 
+
+ /* async (req, res) => {
     let { pid } = req.params
     try {
         let product = await productModel.findOne({_id:pid})

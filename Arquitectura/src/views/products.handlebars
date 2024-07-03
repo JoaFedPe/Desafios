@@ -6,7 +6,7 @@
     </h1>
     {{#each docs}}
     <div>
-        <p>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.status}} - {{this.stock}}- {{this.category}} </p>
+        <p>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.status}} - {{this.stock}}- {{this.category}} - {{this._id}} </p>
         <button type="button" id="boton" onclick="addProduct('{{this._id}}')" >Añadir al carrito</button>
     </div>
     <br/>

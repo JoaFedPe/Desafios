@@ -18,15 +18,24 @@ const getProducts = async (params) => {
     return result
 }
 
-const getProductsById = async (params, res) => {
-    let { pid } = params
+const getProductsById = async (params) => {
+    const pid = params
+    let result = await productRepository.getProductsById(pid)
+    
+    return result
+    
+    
+    
+    /* let { pid } = params
     try {
-        let product = await productRepository.getProductsById({_id:pid})
+        let product = await productRepository.getProductsById(pid)
+        console.log(product)
         res.send({result: "success", payload: product})
+        
         
     } catch (error) {
         res.send({ status: "error", error: "No existe producto con la ID ingresada"})
-    }
+    } */
    
 }
 

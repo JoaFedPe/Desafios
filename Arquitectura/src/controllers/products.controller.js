@@ -1,4 +1,5 @@
-import productsServices from "../services/products.services.js"
+import  productsServices  from "../services/products.services.js"
+
 
 
 
@@ -18,13 +19,14 @@ const getProducts = async (req, res) => {
 
 } 
 
-const getProductsById = async (req) => {
-    let { pid } = req.params
-
-    let product = await productsServices.getProductsById({_id:pid})
+const getProductsById = async (req, res) => {
+    const pid  = req.params
     
-    return product
+    let product = await productsServices.getProductsById(pid)
+    
+    res.json(product)
 
+   
     
 }
 
