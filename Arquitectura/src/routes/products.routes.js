@@ -1,43 +1,16 @@
 import { Router } from 'express'
-import mongoose from 'mongoose'
-import productModel from '../dao/mongo/models/products.model.js'
-import {getProducts, getProductsById} from '../controllers/products.controller.js'
+import {getProducts, getProductsById, addProduct, modifyProduct, deleteProduct} from '../controllers/products.controller.js'
 
 
 const router = Router()
 
 router.get('/products', getProducts)
 
-
 router.get('/products/:pid', getProductsById) 
 
- /* async (req, res) => {
-    let { pid } = req.params
-    try {
-        let product = await productModel.findOne({_id:pid})
-        res.send({result: "success", payload: product})
-        
-    } catch (error) {
-        res.send ({ status: "error", error: "No existe producto con la ID ingresada"})
-    } */
-//})
+router.post('/products', addProduct) 
 
-router.post('/products', async (req, res) => {
-    let {title, description, code, price, status, stock, category,} = req.body
-    if (!title || !description || !code || !price || !status || !stock || !category) {
-        res.send ({ status: "error", error: "Faltan caracteristicas del producto"})        
-    }
-    let existeProducto = await productModel.findOne({ code })
-    if(existeProducto) {
-        res.send ({ status: "error", error: "El producto que quieres agregar ya existe"})}
-        else {
-            let product = await productModel.create({title, description, code, price, status, stock, category,})
-            res.send ({result: "success", payload: product})
-        }
-    }
-)
-
-router.put('/products/:pid', async (req, res) => {
+router.put('/products/:pid', modifyProduct) /* async (req, res) => {
     let { pid } = req.params
     let productToReplace = req.body
     if (!productToReplace.title || !productToReplace.description || !productToReplace.code || !productToReplace.price || !productToReplace.status || !productToReplace.stock || !productToReplace.category) {
@@ -46,17 +19,8 @@ router.put('/products/:pid', async (req, res) => {
     let replacedProduct = await productModel.updateOne({_id:pid}, productToReplace)
     res.send ({result: "success", payload: replacedProduct})
 
-})
+} */
 
-router.delete('/products/:pid', async (req, res) => {
-    let { pid } = req.params
-    try {
-        let product = await productModel.deleteOne({_id:pid})
-        res.send({result: "success", payload: product})
-        
-    } catch (error) {
-        res.send ({ status: "error", error: "No existe el producto que quieres eliminar"})
-    }
-})
+router.delete('/products/:pid', deleteProduct) 
 
 export default router

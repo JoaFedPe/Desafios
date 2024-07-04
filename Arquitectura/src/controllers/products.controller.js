@@ -1,7 +1,4 @@
-import  productsServices  from "../services/products.services.js"
-
-
-
+import  productsServices  from "../dao/mongo/services/products.services.js"
 
 const getProducts = async (req, res) => {
     const {page:_page, limit:_limit, category, title, sort} = req.query
@@ -25,9 +22,31 @@ const getProductsById = async (req, res) => {
     let product = await productsServices.getProductsById(pid)
     
     res.json(product)
-
-   
-    
 }
 
-export {getProducts, getProductsById}
+const addProduct = async (req, res) => {
+    let {title, description, code, price, status, stock, category} = req.body   
+
+    let productAdded = await productsServices.addProduct({title, description, code, price, status, stock, category})
+
+    res.json(productAdded)
+}
+
+const modifyProduct = async (req, res) => {
+    const pid  = req.params
+    let productToModify = req.body
+    let productModifyed = await productsServices.modifyProduct(productToModify.title, productToModify.description, productToModify.code, productToModify.price, productToModify.status, productToModify.stock, productToModify.category)
+    res.json(productModifyed)
+    console.log("controler", productModifyed)
+}
+
+const deleteProduct = async (req, res) => {
+    const pid  = req.params
+    
+    let productDeleted = await productsServices.deleteProduct(pid)
+    
+    res.json(productDeleted)
+}
+
+export {getProducts, getProductsById, addProduct, modifyProduct, deleteProduct}
+
