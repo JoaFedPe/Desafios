@@ -1,10 +1,11 @@
 import { Router } from 'express'
 import cartModel from '../dao/mongo/models/carts.model.js'
 import productModel from '../dao/mongo/models/products.model.js'
+import {getCarts} from '../controllers/carts.controller.js'
 
 const router = Router()
 
-router.get('/carts', async (req, res) => {
+router.get('/carts', getCarts) /* async (req, res) => {
     try {
         let carts = await cartModel.find()
         res.send({result: "success", payload: carts})
@@ -12,7 +13,7 @@ router.get('/carts', async (req, res) => {
     } catch (error) {
         console.log(error)
     }
-})
+}) */
 
 
 router.get('/carts/:cid', async (req, res) => {

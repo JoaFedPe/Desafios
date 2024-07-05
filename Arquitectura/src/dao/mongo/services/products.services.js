@@ -1,4 +1,4 @@
-import productModel from '../models/products.model.js'
+//import productModel from '../models/products.model.js'
 import productRepository from '../repositories/product.repository.js'
 
 const getProducts = async (params) => {
@@ -43,7 +43,7 @@ const addProduct = async (params) => {
     }        
 }
 
-const modifyProduct = async (params) => {
+/* const modifyProduct = async (params) => {
 
     let {title, description, code, price, status, stock, category} = params
     
@@ -55,7 +55,7 @@ const modifyProduct = async (params) => {
     //return ({result: "success", payload: modifyedProduct})
     console.log("services", modifyedProduct)
 
-}
+} */
 
 const deleteProduct = async (params) => {
     const pid = params
@@ -69,4 +69,4 @@ const deleteProduct = async (params) => {
 
 
 
-export default {getProducts, getProductsById, addProduct, modifyProduct, deleteProduct}
+export default {getProducts, getProductsById, addProduct, deleteProduct}
