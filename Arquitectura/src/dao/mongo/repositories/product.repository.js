@@ -10,15 +10,14 @@ const getProductsById = async ({pid}) => {
 }   
 
 const addProduct = async ({title, description, code, price, status, stock, category}) => {
-    console.log("derepo", title, description, code, price, status, stock, category)
-    
+        
     return await productModel.create({title, description, code, price, status, stock, category})
 }
 
 const productFound = async ({ code }) => {
      return  productModel.findOne({code})
 }
-
+//No funciona
 /* const modifyProduct = async () => {
     return productModel.updateOne({_id:pid}, productToModify)
     console.log("repo", productToModify)

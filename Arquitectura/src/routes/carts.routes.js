@@ -1,46 +1,17 @@
 import { Router } from 'express'
 import cartModel from '../dao/mongo/models/carts.model.js'
 import productModel from '../dao/mongo/models/products.model.js'
-import {getCarts} from '../controllers/carts.controller.js'
+import {getCarts, getCartById, addCart, /*modifyCart,*/ deleteCart, deleteProductsInCart, deleteONEproduct} from '../controllers/carts.controller.js'
 
 const router = Router()
 
-router.get('/carts', getCarts) /* async (req, res) => {
-    try {
-        let carts = await cartModel.find()
-        res.send({result: "success", payload: carts})
-        
-    } catch (error) {
-        console.log(error)
-    }
-}) */
+router.get('/carts', getCarts)
 
+router.get('/carts/:cid', getCartById)
 
-router.get('/carts/:cid', async (req, res) => {
-    let { cid } = req.params
-    try {
-        let cart = await cartModel.findOne({_id:cid})
-        
-        res.render('carts', {cart: cart.toObject()})
-        
-    } catch (error) {
-        res.send ({ status: "error", error: "No existe el carrito con la ID ingresada"})
-    }
-})
+router.post('/carts', addCart)
 
-router.post('/carts', async (req, res) => {
-    let {productsInCart} = req.body
-    if (productsInCart) {
-        let cart = await cartModel.create({productsInCart})
-        res.send ({result: "success", payload: cart})
-                
-    }else{
-        res.send ({ status: "error", error: "Error al crear el Carrito"})
-        }
-    }
-)
-
-router.put('/carts/:cid/product/:pid', async (req, res) => {
+router.put('/carts/:cid/product/:pid', modifyCart) /* async (req, res) => {
     let { cid,  pid } = req.params
     let { quantity } = req.body
     if(!quantity) quantity = 1
@@ -68,36 +39,13 @@ router.put('/carts/:cid/product/:pid', async (req, res) => {
 
     res.send({result: "success", payload: updatedCart})  
 
-})
+}) */
 
+router.delete('/deletecart/:cid', deleteCart)
 
-router.delete('/deletecart/:cid', async (req, res) => {
-    let { cid } = req.params
-    try {
-        let cart = await cartModel.deleteOne({_id:cid})
-        res.send({result: "success", payload: cart})
-        
-    } catch (error) {
-        res.send ({ status: "error", error: "No existe el carrito que quieres eliminar"})
-    }
-}) 
+router.delete('/carts/:cid', deleteProductsInCart) 
 
-router.delete('/carts/:cid', async (req, res) => {
-    let { cid } = req.params
-    try {
-        let cart = await cartModel.findOneAndUpdate(
-            {_id:cid},
-            { $set: {productsInCart: []}}
-        )        
-
-        res.send({result: "success", payload: cart})
-        
-    } catch (error) {
-        res.send ({ status: "error", error: "No existe el carrito al cual le quieres eliminar los productos"})
-    }
-})
-
-router.delete('/carts/:cid/product/:pid', async (req, res) => {
+router.delete('/carts/:cid/product/:pid', deleteONEproduct)/* async (req, res) => {
     let { cid,  pid } = req.params
     const productToDel = await productModel.findOne({_id:pid})
 
@@ -113,6 +61,6 @@ router.delete('/carts/:cid/product/:pid', async (req, res) => {
 
     res.send({result: "success", payload: updatedCart})  
 
-})
+}) */
 
 export default router

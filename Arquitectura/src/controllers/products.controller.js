@@ -32,6 +32,7 @@ const addProduct = async (req, res) => {
     res.json(productAdded)
 }
 
+//No funciona
 /* const modifyProduct = async (req, res) => {
     const pid  = req.params
     let productToModify = req.body
@@ -48,5 +49,5 @@ const deleteProduct = async (req, res) => {
     res.json(productDeleted)
 }
 
-export {getProducts, getProductsById, addProduct, deleteProduct}
+export {getProducts, getProductsById, addProduct, /*modifyProduct*/ deleteProduct}
 

@@ -1,4 +1,3 @@
-//import productModel from '../models/products.model.js'
 import productRepository from '../repositories/product.repository.js'
 
 const getProducts = async (params) => {
@@ -43,6 +42,7 @@ const addProduct = async (params) => {
     }        
 }
 
+//No funciona
 /* const modifyProduct = async (params) => {
 
     let {title, description, code, price, status, stock, category} = params
@@ -69,4 +69,4 @@ const deleteProduct = async (params) => {
 
 
 
-export default {getProducts, getProductsById, addProduct, deleteProduct}
+export default {getProducts, getProductsById, addProduct, /*modifyProduct*/ deleteProduct}

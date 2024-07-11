@@ -10,6 +10,7 @@ router.get('/products/:pid', getProductsById)
 
 router.post('/products', addProduct) 
 
+//No funciona
 /* router.put('/products/:pid', modifyProduct) /* async (req, res) => {
     let { pid } = req.params
     let productToReplace = req.body
