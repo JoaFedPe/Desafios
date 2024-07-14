@@ -11,7 +11,7 @@ router.get('/carts/:cid', getCartById)
 
 router.post('/carts', addCart)
 
-router.put('/carts/:cid/product/:pid', modifyCart) /* async (req, res) => {
+/*router.put('/carts/:cid/product/:pid',modifyCart) /* async (req, res) => {
     let { cid,  pid } = req.params
     let { quantity } = req.body
     if(!quantity) quantity = 1

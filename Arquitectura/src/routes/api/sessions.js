@@ -2,11 +2,12 @@ import { Router } from "express"
 import User from '../../dao/mongo/models/user.model.js'
 //import firstCollection from "../../dao/mongo/models/user.model.js"
 import passport from 'passport'
+import {registerUser, logUser} from '../../controllers/sessions.controllers.js'
 
 
-const router = Router()
+const router = Router() 
 
-router.post('/register', async (req, res) => {
+router.post('/register', registerUser) /*async (req, res) => {
     const {first_name, last_name, email, age, password} = req.body
     
     try{
@@ -24,9 +25,9 @@ router.post('/register', async (req, res) => {
     } catch (err) {
         res.status(500).send('Error al registrar usuario')
     }
-})
+}) */
 
-router.post('/login', async (req, res) => {
+router.post('/login', logUser) /* async (req, res) => {
     const {email, password} = req.body
     console.log(email, password)
     try{
@@ -46,7 +47,7 @@ router.post('/login', async (req, res) => {
     } catch(err){
         res.status(500).send('Error al iniciar sesión')
     }
-})
+}) */
 
 router.post('/logout', (req, res) => {
     req.session.destroy((err) => {

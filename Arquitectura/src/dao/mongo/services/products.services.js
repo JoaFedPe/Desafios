@@ -1,5 +1,5 @@
 import productRepository from '../repositories/product.repository.js'
-
+//no funcionan las páginas
 const getProducts = async (params) => {
     const {page=1, limit=10,category,sort, title} = params
     let filters = {}
