@@ -17,11 +17,11 @@ const addProduct = async ({title, description, code, price, status, stock, categ
 const productFound = async ({ code }) => {
      return  productModel.findOne({code})
 }
-//No funciona
-/* const modifyProduct = async () => {
+
+const modifyProduct = async (pid, productToModify) => {
+    console.log("repo", pid, productToModify)
     return productModel.updateOne({_id:pid}, productToModify)
-    console.log("repo", productToModify)
-} */
+}
 
 const deleteProduct = async ({pid}) => {
     
@@ -29,4 +29,4 @@ const deleteProduct = async ({pid}) => {
 }     
 
 
-export default {getProducts, getProductsById, addProduct, productFound, deleteProduct}
+export default {getProducts, getProductsById, addProduct, productFound, modifyProduct, deleteProduct}

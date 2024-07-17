@@ -3,8 +3,6 @@ import GitHubStrategy from 'passport-github2'
 import firstCollection from '../dao/mongo/models/user.model.js'
 import { createHash, isValidPassword } from "../utils.js";
 
-
-
 const initializePassport = () => {
 
     passport.use('github', new GitHubStrategy({
@@ -21,7 +19,8 @@ const initializePassport = () => {
                     last_name: "",
                     age: 28,
                     email: profile._json.email,
-                    password: ""
+                    password: "",
+                    cart: cart._id
                 }
 
                 if (profile._json.email === 'adminCoder@coder.com') {
@@ -51,10 +50,6 @@ const initializePassport = () => {
         let user = await firstCollection.findById(id)
         done(null, user)
     })
-
-
-
-
 
 }
 

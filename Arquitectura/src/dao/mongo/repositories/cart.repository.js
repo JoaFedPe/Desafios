@@ -13,19 +13,20 @@ const addCart = async ({productsInCart}) => {
    return await cartModel.create({productsInCart})
 }
 
-/* //no funciona
-const modifyProdQuanInCart = async ({cid}) => {
+
+const modifyProdQuanInCart = async ({cid,pid,quantity}) => {
    return await cartModel.updateOne(
-      {_id: cid, "productsInCart.product": productToAdd._id},
+      {_id: cid, "productsInCart.product": pid},
       {$inc: { "productsInCart.$.quantity": quantity}}
    )
 }
 
-//no funciona
-const modifyCart = async ({cid}) => {(
+
+const modifyCart = async ({cid, pid,quantity}) => {
+   return await cartModel.updateOne(
    {_id: cid},
-   {$push: { productsInCart: { product: productToAdd._id, quantity: quantity}}}
-)} */
+   {$push: { productsInCart: { product: pid, quantity: quantity}}}
+)} 
 
 const deleteCart = async ({cid}) => {
    return await cartModel.deleteOne({_id:cid})
@@ -39,13 +40,13 @@ const deleteProductsInCart = async ({cid}) => {
 }
 
 //ver por qué no lo borra
-const deleteONEproduct = async ({cid}) => {
+const deleteONEproduct = async ({cid,pid}) => {
      
    return await cartModel.findOneAndUpdate(
       { _id: cid },
-      { $pull: { productsInCart: { product: productToDel._id}}},
+      { $pull: { productsInCart: { product: pid}}},
       { new: true },
    )
 }
 
-export default {getCarts, getCartById, addCart, /* modifyProdQuanInCart, modifyCart, */ deleteCart, deleteProductsInCart, deleteONEproduct}
+export default {getCarts, getCartById, addCart, modifyProdQuanInCart, modifyCart, deleteCart, deleteProductsInCart, deleteONEproduct}

@@ -1,7 +1,7 @@
 import cartRepository from '../repositories/cart.repository.js'
 import productRepository from '../repositories/product.repository.js'
 
-import {getProductsById} from '../../../controllers/products.controller.js'
+//import {getProductsById} from '../../../controllers/products.controller.js'
 
 
 const getCarts = async () => {
@@ -39,29 +39,29 @@ const addCart = async (params) => {
     }
 }
 
-/* //No funciona
+
 const modifyCart = async (params) => {
-    let {cid, pid} = params
+    let {cid, pid, quantity} = params
     
-    const productToAdd = await getProductsById(pid)    
+    const productToAdd = await productRepository.getProductsById({pid})    
     
     if (!productToAdd) {
         return ({ status: "error", error: "Producto no encontrado" })
     }
 
-    const updatedCart = await cartRepository.getCartById(cid)
+    const updatedCart = await cartRepository.getCartById({cid})
     
     const productAllReadyInCart = updatedCart.productsInCart.some(product => product.product.equals(productToAdd._id))
      
     if (productAllReadyInCart) {       
-        await cartRepository.modifyProdQuanInCart(cid, pid)         
+        await cartRepository.modifyProdQuanInCart({cid, pid, quantity})         
         
     } else {        
-        await cartRepository.modifyCart(cid)
+        await cartRepository.modifyCart({cid,pid,quantity})
     }    
 
     return ({result: "success", payload: updatedCart})
-} */
+} 
 
 const deleteCart = async (params) => {
     let cid = params
@@ -97,11 +97,11 @@ const deleteONEproduct = async (params) => {
         return ({ status: "error", error: "Producto no encontrado" })
     }
 
-    const updatedCart = await cartRepository.deleteONEproduct({cid})
+    const updatedCart = await cartRepository.deleteONEproduct({cid,pid})
     //console.log(updatedCart)
 
     return ({result: "success", payload: updatedCart}) 
 }
 
-export default {getCarts, getCartById, addCart, /* modifyCart, */ deleteCart, deleteProductsInCart, deleteONEproduct}
+export default {getCarts, getCartById, addCart, modifyCart, deleteCart, deleteProductsInCart, deleteONEproduct}
 

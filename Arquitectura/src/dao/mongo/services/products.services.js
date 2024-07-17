@@ -1,5 +1,5 @@
 import productRepository from '../repositories/product.repository.js'
-//no funcionan las páginas
+
 const getProducts = async (params) => {
     const {page=1, limit=10,category,sort, title} = params
     let filters = {}
@@ -42,8 +42,8 @@ const addProduct = async (params) => {
     }        
 }
 
-//No funciona
-/* const modifyProduct = async (params) => {
+
+const modifyProduct = async (pid, params) => {
 
     let {title, description, code, price, status, stock, category} = params
     
@@ -51,11 +51,10 @@ const addProduct = async (params) => {
         return ({ status: "error", error: "Faltan caracteristicas del producto que quieres modificar"})
                
     }
-    let modifyedProduct = await productModel.updateOne({_id:pid}, productToModify)
-    //return ({result: "success", payload: modifyedProduct})
-    console.log("services", modifyedProduct)
-
-} */
+    let modifyedProduct = await productRepository.modifyProduct(pid, params)
+    return ({result: "success", payload: modifyedProduct})
+    
+}
 
 const deleteProduct = async (params) => {
     const pid = params
@@ -69,4 +68,4 @@ const deleteProduct = async (params) => {
 
 
 
-export default {getProducts, getProductsById, addProduct, /*modifyProduct*/ deleteProduct}
+export default {getProducts, getProductsById, addProduct, modifyProduct, deleteProduct}

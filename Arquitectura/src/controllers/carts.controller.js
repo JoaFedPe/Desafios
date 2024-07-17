@@ -23,17 +23,17 @@ const addCart = async (req, res) => {
     res.json(cartAdded)
 }
 
-/* //No funciona
+
 const modifyCart = async (req, res) => {
     let { cid,  pid } = req.params
     let { quantity } = req.body
 
     if(!quantity) quantity = 1
 
-    let modifiedCart = await cartsServices.modifyCart({cid, pid})
+    let modifiedCart = await cartsServices.modifyCart({cid, pid,quantity})
     
     res.json(modifiedCart)
-} */
+} 
 
 const deleteCart = async (req, res) => {
     let cid = req.params
@@ -59,4 +59,4 @@ const deleteONEproduct = async (req, res) => {
     res.json(productToDelete)
 }
 
-export {getCarts, getCartById, addCart, /* modifyCart, */ deleteCart, deleteProductsInCart, deleteONEproduct}
+export {getCarts, getCartById, addCart, modifyCart, deleteCart, deleteProductsInCart, deleteONEproduct}

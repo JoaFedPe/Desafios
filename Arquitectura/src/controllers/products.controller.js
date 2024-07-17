@@ -7,11 +7,11 @@ const getProducts = async (req, res) => {
     
 
     let result = await productsServices.getProducts ({page,limit,title,sort,category})    
-    
+    console.log(result)
     res.render('products', {
-        docs:result.docs,
         user: req.session.user,
-        isValid: true             
+        isValid: true,
+        ...result             
     })
 
 } 
@@ -32,14 +32,14 @@ const addProduct = async (req, res) => {
     res.json(productAdded)
 }
 
-//No funciona
-/* const modifyProduct = async (req, res) => {
-    const pid  = req.params
+
+const modifyProduct = async (req, res) => {
+    const {pid}  = req.params
     let productToModify = req.body
-    let productModifyed = await productsServices.modifyProduct(productToModify.title, productToModify.description, productToModify.code, productToModify.price, productToModify.status, productToModify.stock, productToModify.category)
+    let productModifyed = await productsServices.modifyProduct(pid, productToModify)
     res.json(productModifyed)
     console.log("controler", productModifyed)
-} */
+}
 
 const deleteProduct = async (req, res) => {
     const pid  = req.params
@@ -49,5 +49,5 @@ const deleteProduct = async (req, res) => {
     res.json(productDeleted)
 }
 
-export {getProducts, getProductsById, addProduct, /*modifyProduct*/ deleteProduct}
+export {getProducts, getProductsById, addProduct, modifyProduct, deleteProduct}
 
