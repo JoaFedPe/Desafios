@@ -7,53 +7,44 @@ import {registerUser, logUser} from '../../controllers/sessions.controllers.js'
 
 const router = Router() 
 
-router.post('/register', registerUser) /*async (req, res) => {
-    const {first_name, last_name, email, age, password} = req.body
+
+router.post('/register', passport.authenticate('register', { failureRedirect: 'failregister' }), async (req, res) => {
+    res.redirect('/login')
+});
     
-    try{
-        const newUser = new User ({first_name, last_name, email, age, password})
+router.get('/failregister', async (req, res) => {
+    console.log("Estrategia fallida")
+    res.send({ error: "Falló" })
+})
 
-        if (email === 'adminCoder@coder.com') {
-            newUser.rol = 'admin';
-        } else {
-            newUser.rol = 'user';
-        }       
-
-        await newUser.save()
-        res.redirect('/login')
-
-    } catch (err) {
-        res.status(500).send('Error al registrar usuario')
-    }
-}) */
-
-router.post('/login', logUser) /* async (req, res) => {
-    const {email, password} = req.body
-    console.log(email, password)
-    try{
-        const user = await User.findOne ({email})
-        console.log(user)
-        if(!user) return res.status(404).send('Usuario no encontrado')
+router.post('/login', passport.authenticate('login', { failureRedirect: 'faillogin' }), async (req, res) => {
+    if (!req.user) return res.status(400).send({ status: "error", error: "Datos incompletos" })
+    try {
         req.session.user = {
-            id: user._id,
-            first_name: user.first_name,
-            last_name: user.last_name,
-            email: user.email,
-            age: user.age,
-        }
+            first_name: req.user.first_name,
+            last_name: req.user.last_name,
+            email: req.user.email,
+            age: req.user.age,
+        };
+            
+            
         console.log(req.session.user)
-        res.redirect('/products')   
-
-    } catch(err){
-        res.status(500).send('Error al iniciar sesión')
+        res.redirect('/products');
+    
+    } catch (err) {
+        res.status(500).send('Error al iniciar sesión');
     }
-}) */
+})
 
 router.post('/logout', (req, res) => {
     req.session.destroy((err) => {
-        if (err) return res.status(500).send('Error al cerrar sesión')
-        res.redirect('/login')    
-    })
+        if (err) return res.status(500).send('Error al cerrar sesión');
+        res.redirect('/login');
+    });
+})
+
+router.get('/faillogin', (req, res) => {
+    res.send({ error: "Login fallido" })
 })
 
 router.get("/github", passport.authenticate("github",{scope:["user:email"]}),async(req,res)=>{})

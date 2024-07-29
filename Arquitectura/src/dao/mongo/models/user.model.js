@@ -11,10 +11,10 @@ const userSchema = new mongoose.Schema({
     cart: {
         type:[
             {
-                carrito:{
-                    type: mongoose.Schema.Types.ObjectId,
-                    ref:"Carts"
-                }
+                
+                type: mongoose.Schema.Types.ObjectId,
+                ref:"Carts"
+                
             }
         ]
     },
@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.pre('findOne', function(){
-    this.populate('cart.carrito')
+    this.populate('cart')
 })
 
 const firstCollection = mongoose.model(userCollection, userSchema);

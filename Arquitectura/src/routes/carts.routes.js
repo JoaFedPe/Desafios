@@ -17,22 +17,6 @@ router.delete('/deletecart/:cid', deleteCart)
 
 router.delete('/carts/:cid', deleteProductsInCart) 
 
-router.delete('/carts/:cid/product/:pid', deleteONEproduct)/* async (req, res) => {
-    let { cid,  pid } = req.params
-    const productToDel = await productModel.findOne({_id:pid})
-
-    if (!productToDel) {
-        res.send({ status: "error", error: "Producto no encontrado" })
-    }
-
-    const updatedCart = await cartModel.findOneAndUpdate(
-        { _id: cid },
-        { $pull: { productsInCart: { product: productToDel._id }}},
-        { new: true }
-    )
-
-    res.send({result: "success", payload: updatedCart})  
-
-}) */
+router.delete('/carts/:cid/product/:pid', deleteONEproduct)
 
 export default router

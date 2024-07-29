@@ -1,9 +1,6 @@
 import cartRepository from '../repositories/cart.repository.js'
 import productRepository from '../repositories/product.repository.js'
 
-//import {getProductsById} from '../../../controllers/products.controller.js'
-
-
 const getCarts = async () => {
     try {
         let carts = await cartRepository.getCarts()
@@ -19,7 +16,7 @@ const getCartById = async (params) => {
     
     try {
         let cart = await cartRepository.getCartById(cid)
-
+        
         return ('carts', {cart: cart.toObject()})        
                
     } catch (error) {
@@ -51,8 +48,10 @@ const modifyCart = async (params) => {
 
     const updatedCart = await cartRepository.getCartById({cid})
     
+       
     const productAllReadyInCart = updatedCart.productsInCart.some(product => product.product.equals(productToAdd._id))
-     
+
+       
     if (productAllReadyInCart) {       
         await cartRepository.modifyProdQuanInCart({cid, pid, quantity})         
         
@@ -92,13 +91,13 @@ const deleteONEproduct = async (params) => {
     let {cid, pid} = params
     
     const productToDel = await productRepository.getProductsById({pid})
-    //console.log(productToDel)
+    
     if (!productToDel) {
         return ({ status: "error", error: "Producto no encontrado" })
     }
 
     const updatedCart = await cartRepository.deleteONEproduct({cid,pid})
-    //console.log(updatedCart)
+    
 
     return ({result: "success", payload: updatedCart}) 
 }
