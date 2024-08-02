@@ -51,6 +51,7 @@ const initializePassport = () => {
 
     passport.deserializeUser(async (id, done) => {
         let user = await firstCollection.findById(id)
+        
         done(null, user)
     })
 

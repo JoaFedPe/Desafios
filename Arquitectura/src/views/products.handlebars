@@ -9,20 +9,17 @@
     <a href="/profile"><button>Ir a su Perfil</button></a>
     </div>
 
-    {{!-- <div>
-    <a href="carts/6697e9f07d41327ad0faa890"><button>Carrito</button></a>
-    </div> --}}
-    
+       
     <div>
-    <a href="carts/{{cart._id}}"><button>Carrito</button></a>
-    <p>Cart ID: {{cart._id}}</p>
+    <a href="carts/{{user.cart}}"><button>Carrito</button></a>
+    <p>Cart ID: {{user.cart}}</p>
     </div>
     
 
     {{#each docs}}
     <div>
         <p>{{this.title}} - {{this.description}} - {{this.code}} - {{this.price}} - {{this.status}} - {{this.stock}}- {{this.category}} - {{this._id}} </p>
-        <button type="button" id="boton" onclick="addProduct('{{this._id}}')" >Añadir al carrito</button>
+        <button type="button"  id={{this.id}} class="addProButton" onclick="addProduct('{{this._id}}', '{{../user.cart}}')" >Añadir al carrito</button>
     </div>
     <br/>
     {{/each}}
@@ -44,11 +41,12 @@
 <h1>No hay productos que mostrar</h1>
 {{/if}}
 
-<script>   
-
-    function addProduct(_id){      
+<script> 
+    
+    function addProduct(_id, cart){ 
+        console.log("addpro", cart)     
    
-    fetch(`/carts/${cart._id}/product/`+_id,{
+    fetch(`/carts/${cart}/product/`+_id,{
         
         method: 'PUT',
         headers: {
@@ -59,18 +57,3 @@
 }
 </script>
 
-{{!-- <script>
-    
-
-    function addProduct(_id){      
-   
-    fetch('/carts/669e48088b21ff4bf4adbc47/product/'+_id,{
-        
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        
-    })
-}
-</script> --}}

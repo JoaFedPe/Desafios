@@ -1,8 +1,8 @@
 import { Router } from "express"
 import User from '../../dao/mongo/models/user.model.js'
-//import firstCollection from "../../dao/mongo/models/user.model.js"
+
 import passport from 'passport'
-import {registerUser, logUser} from '../../controllers/sessions.controllers.js'
+import {logUser} from '../../controllers/sessions.controllers.js'
 
 
 const router = Router() 
@@ -13,28 +13,11 @@ router.post('/register', passport.authenticate('register', { failureRedirect: 'f
 });
     
 router.get('/failregister', async (req, res) => {
-    console.log("Estrategia fallida")
+    
     res.send({ error: "Falló" })
 })
 
-router.post('/login', passport.authenticate('login', { failureRedirect: 'faillogin' }), async (req, res) => {
-    if (!req.user) return res.status(400).send({ status: "error", error: "Datos incompletos" })
-    try {
-        req.session.user = {
-            first_name: req.user.first_name,
-            last_name: req.user.last_name,
-            email: req.user.email,
-            age: req.user.age,
-        };
-            
-            
-        console.log(req.session.user)
-        res.redirect('/products');
-    
-    } catch (err) {
-        res.status(500).send('Error al iniciar sesión');
-    }
-})
+router.post('/login', passport.authenticate('login', { failureRedirect: 'faillogin' }), logUser)
 
 router.post('/logout', (req, res) => {
     req.session.destroy((err) => {

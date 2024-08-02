@@ -8,4 +8,4 @@ const userFound = async ({ email }) => {
     return  userModel.findOne({email})
 }    
 
-export default {/*registerUser,*/ userFound}
+export default {/*registerUser,*/ userFound} 

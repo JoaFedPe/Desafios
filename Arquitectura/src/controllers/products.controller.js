@@ -7,7 +7,7 @@ const getProducts = async (req, res) => {
     
 
     let result = await productsServices.getProducts ({page,limit,title,sort,category})    
-    
+    console.log("usuario", req.session)
     res.render('products', {
         user: req.session.user,
         isValid: true,

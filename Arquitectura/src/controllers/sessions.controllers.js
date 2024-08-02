@@ -1,19 +1,18 @@
-import sessionsServices from "../dao/mongo/services/sessions.services.js"
-
-const registerUser = async (req, res) => {
-    let {first_name, last_name, email, age, password} = req.body
-
-    let registeredUser = await sessionsServices.registerUser({first_name, last_name, email, age, password})
-
-    res.json(registeredUser)
-}
+import { logUserService } from "../dao/mongo/services/sessions.services.js"
 
 const logUser = async (req, res) => {
-    let {email, password} = req.body
 
-    const loguedUser = await sessionsServices.logUser({email, password})
-
-    res.json(loguedUser)
+    if (!req.user) return res.status(400).send({ status: "error", error: "Datos incompletos" })
+    try {
+        req.session.user = logUserService(req.user) 
+        console.log("controler", req.session.user)    
+            
+        console.log(req.session.user)
+        res.redirect('/products');
+    
+    } catch (err) {
+        res.status(500).send('Error al iniciar sesión');
+    }
 }
 
-export {registerUser, logUser}
+export {logUser}
